@@ -15,7 +15,7 @@ export class StudentTableComponent implements OnInit {
   studentData: any;
   selected: any;
 
-  constructor(private service : AppServiceService, private router: Router) { }
+  constructor(private service : AppServiceService, private router: Router) {}
 
   ngOnInit(): void {
     this.getStudentData();
@@ -51,17 +51,14 @@ export class StudentTableComponent implements OnInit {
     })
   }
 
-  search(value) {
-    let foundItems = [];
-    if (value.length <= 0) {
-      this.getStudentData();
-    } else {
-      let b = this.studentData.filter((student) => {
-        if (student[0].name.toLowerCase().indexOf(value) > -1) {
-          foundItems.push(student)
-        }
-      });
-      this.studentData = foundItems;
-    }
+ search(value: string) {
+  if (!value) {
+    this.getStudentData();
+  } else {
+    this.studentData = this.studentData.filter(student =>
+      student.name.toLowerCase().includes(value.toLowerCase())
+    );
   }
+}
+
 }
